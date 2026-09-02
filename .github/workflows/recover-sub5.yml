@@ -11,6 +11,8 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+      - name: Fix encoded input padding
+        run: printf '=' >> input_parts/part_017.txt
       - name: Translate SRT
         env:
           MAX_WORKERS: '8'
