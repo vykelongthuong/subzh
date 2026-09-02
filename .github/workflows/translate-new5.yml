@@ -16,14 +16,6 @@ jobs:
           mkdir -p input
           cat new5_parts/part_*.txt | base64 -d | gzip -d > input/5.srt
           echo "0616cd5137ba9db598e5a9d04afbf9f48f92ccf33a36eb67f41a84ef83030b31  input/5.srt" | sha256sum -c -
-          python - <<'PY'
-          import re
-          from pathlib import Path
-          t=Path('input/5.srt').read_text(encoding='utf-8-sig')
-          n=len(re.findall(r'(?m)^\d+\s*$', t))
-          print('cue_like=', n)
-          assert n == 2834, n
-          PY
       - name: Set output filename
         run: sed -i 's/sub_5(20260901-212054).srt/sub_5(20260902-065357).srt/' translate.py
       - name: Translate
@@ -38,4 +30,3 @@ jobs:
             output/sub_5(20260902-065357).srt
             output/chinese_left.json
           if-no-files-found: error
-# source chunks complete
